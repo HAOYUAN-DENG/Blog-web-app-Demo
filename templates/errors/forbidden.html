@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} mt-3 alert-dismissible" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            onclick=delete_flash(this)>
+                        <span>&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    <div>
+        <h1 style="display:flex; flex-direction: row; justify-content: center">Forbidden</h1>
+        <p1>You are not authorised to access requested page</p1>
+    </div>
+
+
+{% endblock %}

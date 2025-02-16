@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h2>MFA Setup</h2>
+        <p>Please use the MFA key below in your authenticator app, or scan the QR code.</p>
+
+        <div id="mfa-setup">
+            <!-- MFA information will be loaded here by JavaScript -->
+        </div>
+
+        <p><a href="/login" class="btn btn-success">To Login</a></p>
+
+
+    </div>
+
+    <script>
+        async function loadMfaSetup(){
+            try {
+                const response = await fetch('/api/accounts/setup_mfa', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if(response.status === 200){
+                    // Build HTML for displaying MFA key and QR code image
+                    let html = `
+                    <p><strong>MFA Key:</strong> <span style="color: purple">${data.mfa_key}</span></p>
+                    <p>Scan the QR code below with your authenticator app:</p>
+                    <img src="data:image/png;base64,${data.qr_code}" alt="QR Code for MFA" width="250" height="250">
+                `;
+                    document.getElementById('mfa-setup').innerHTML = html;
+                } else {
+                    document.getElementById('mfa-setup').innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                }
+            } catch(error) {
+                console.error('Error:', error);
+                document.getElementById('mfa-setup').innerHTML = '<div class="alert alert-danger">Failed to load MFA setup information.</div>';
+            }
+        }
+        // Load MFA setup info when page loads
+        window.addEventListener('DOMContentLoaded', loadMfaSetup);
+    </script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1 style="align-content: center">Security</h1>
+
+
+    <div>
+        <h6 style="display: flex; align-content: flex-start; font-weight: bold">User Registration and Login Event Log</h6>
+
+        <table class="table table-bordered table-hover ">
+
+            <thead class="thead-dark">
+            <tr>
+                <th>Account #</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Registered</th>
+                <th>Lasted Login</th>
+                <th>Previous Login</th>
+                <th>Latest IP</th>
+                <th>Previous IP</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            {% for user in user %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }} </td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.log.registration }}</td>
+                    <td> {{ user.log.latest_login }}</td>
+                    <td> {{ user.log.previous_login }}</td>
+                    <td>{{ user.log.latest_ip }}</td>
+                    <td>{{ user.log.previous_ip }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div style="margin-top: 4rem">
+        <h6 style="display: flex; align-content: flex-start; font-weight: bold">User Event Log</h6>
+
+        <table class="table table-hover">
+
+            <thead class="thead-dark" value="text-left">
+            <tr>
+                <th style="text-align: left"> Last 10 Security Log Entries</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td style="text-align: left">{{ log }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+

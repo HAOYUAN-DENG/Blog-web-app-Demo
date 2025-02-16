@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h3>Your Account Information</h3>
+
+        <div id="account-info">
+            <!-- User info and posts will be loaded here by JavaScript -->
+        </div>
+
+    </div>
+
+    <script>
+        async function loadAccountInfo(){
+            try {
+                const response = await fetch('/api/accounts/account', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if(response.status === 200){
+                    // Build HTML for user info and posts
+                    let html = `
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Account ID: ${data.id}</td>
+                                <td>First name: ${data.firstname}</td>
+                            </tr>
+                            <tr>
+                                <td>Last name: ${data.lastname}</td>
+                                <td>Phone: ${data.phone}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Your Posts</h4>
+                `;
+                    if(data.posts.length === 0){
+                        html += '<p>You have not posted yet.</p>';
+                    } else {
+                        data.posts.forEach(post => {
+                            html += `
+                            <div class="card border border-dark mt-3">
+                                <div class="card-header bg-dark text-white">
+                                    <h4>${post.title}</h4>
+                                    <small>${post.created}</small>
+                                </div>
+                                <div class="card-body">${post.body}</div>
+                            </div>
+                        `;
+                        });
+                    }
+                    document.getElementById('account-info').innerHTML = html;
+                } else {
+                    document.getElementById('account-info').innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('account-info').innerHTML = '<div class="alert alert-danger">Failed to load account information.</div>';
+            }
+        }
+        // Load account info when page loads
+        window.addEventListener('DOMContentLoaded', loadAccountInfo);
+    </script>
+{% endblock %}

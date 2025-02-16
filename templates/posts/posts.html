@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Posts</h1>
+        <div class="p-2 row">
+
+            <div class="col-2"></div>
+            <div class="col-8">
+
+                <div class="p-2 bg-light border border-primary" style="text-align: left" value="text-left">
+
+                    <div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% for category, message in messages %}
+                                <div style="text-align: left" class="alert alert-{{ category }} mt-3 alert-dismissible"
+                                     value="text-left"
+                                     role="alert">
+                                    {{ message }}
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            onclick=delete_flash(this)>
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+
+                    {% for post in posts %}
+                        <div class="card border border-dark">
+
+                            <div class="card-header bg-dark text-white border border-dark">
+                                <h4>{{ post.title }}</h4>
+                                <h4>User: {{ post.user.firstname }} {{ post.user.lastname }}</h4>
+                                <small>{{ post.created.strftime('%H:%M:%S %d-%m-%Y') }}</small>
+                            </div>
+
+                            <div class="card-body">{{ post.body }}</div>
+
+                            <div class="card-footer">
+                                {% if current_user.is_authenticated %}
+                                    <a class="navbar-item" href="{{ url_for('posts.update', id=post.id) }}">Update</a>
+                                {% endif %}
+                                {% if current_user.is_authenticated %}
+                                    <a class="navbar-item" href="{{ url_for('posts.delete', id=post.id) }}">Delete</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <br>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="col-2"></div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
