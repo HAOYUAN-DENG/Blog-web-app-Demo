@@ -64,7 +64,7 @@ This project is a blog demo application built using Flask. It offers:
 ├── forms.py             # WTForms definitions for registration, login, and posts
 └── logs.log             # Log file storing user activity logs
 ```
-
+（using HTML, javascript, python flask）
 ### Installation
 
 1. **Clone the repository:**
