@@ -84,6 +84,7 @@ This project is a blog demo application built using Flask. It offers:
    ```
 
 4. **Initialize the Database:**
+(or simply use the database provided called blog.db) 
    ```bash
    flask db init
    flask db migrate
