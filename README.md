@@ -1,4 +1,3 @@
-
 # Blog Demo Application
 
 A Flask-based blog demo project with user registration, multi-factor authentication, encrypted post creation, and role-based access control. The application demonstrates a complete web application stack with RESTful API endpoints, form validation, secure logging, and various user interfaces for registration, login, posting, and security monitoring.
@@ -14,6 +13,7 @@ A Flask-based blog demo project with user registration, multi-factor authenticat
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Docker](#docker)
 - [Security](#security)
 - [Logging](#logging)
 - [API Endpoints](#api-endpoints)
@@ -44,27 +44,15 @@ This project is a blog demo application built using Flask. It offers:
 ```
 ├── app.py               # Main application entry point
 ├── config.py            # Configuration and application setup (database, logging, security, etc.)
-├── templates/
-│   ├── base.html        # Base template with navigation and common layout
-│   ├── index.html       # Home page
-│   ├── account.html     # User account page
-│   ├── login.html       # Login page
-│   ├── registration.html# Registration page
-│   ├── setup_mfa.html   # MFA setup page
-│   ├── posts/           # Post related templates:
-│   │   ├── create.html  # Create post page
-│   │   ├── update.html  # Update post page
-│   │   └── posts.html   # List posts page
-│   └── security.html    # Security monitoring page
-├── accounts/            # Contains API and view routes for user account management
-│   ├── api.py           # RESTful API endpoints for account operations
-│   └── views.py         # Account-related view routes (login, registration, account, MFA)
-├── posts/               # Contains post views and forms
-│   └── views.py         # Post creation, update, deletion, and display logic
+├── Dockerfile           # Docker configuration for containerizing the application
+├── requirements.txt     # Python dependencies for the project
+├── templates/           # HTML templates for various pages
+├── accounts/            # API and view routes for user account management
+├── posts/               # Post views and forms
 ├── forms.py             # WTForms definitions for registration, login, and posts
 └── logs.log             # Log file storing user activity logs
 ```
-（using HTML, javascript, python flask）
+
 ### Installation
 
 1. **Clone the repository:**
@@ -84,7 +72,7 @@ This project is a blog demo application built using Flask. It offers:
 
 3. **Configure environment variables:**
 
-   Create a `.env` file in the project root with the necessary configurations, for example(or use provided .env file):
+   Create a `.env` file in the project root with the necessary configurations, for example (or use the provided .env file):
 
    ```env
    SQLALCHEMY_DATABASE_URI=sqlite:///blog.db
@@ -96,7 +84,6 @@ This project is a blog demo application built using Flask. It offers:
    ```
 
 4. **Initialize the Database:**
-(or use provided db file）
    ```bash
    flask db init
    flask db migrate
@@ -123,6 +110,28 @@ This project is a blog demo application built using Flask. It offers:
    - **Security Page:** Accessible by security administrators to view recent security logs and user event logs.
    - **API Endpoints:** RESTful API routes are available under `/api/accounts` for operations like registration, login, account details, MFA setup, and account unlocking (accessible by `db_admin`).
 
+### Docker
+
+You can also run the application inside a Docker container. Follow these steps:
+
+1. **Build the Docker Image:**
+
+   ```bash
+   docker build -t blog-demo .
+   ```
+
+2. **Run the Docker Container:**
+
+   ```bash
+   docker run -d -p 5000:5000 --name blog-demo-container blog-demo
+   ```
+
+3. **Access the Application:**
+
+   Open your browser and navigate to [http://localhost:5000](http://localhost:5000).
+
+_Note:_ Ensure that you have configured the necessary environment variables in your Docker environment (either via a `.env` file copied into the container or using Docker environment variable options).
+
 ### Security
 
 - **Password Security:** Passwords are hashed using secure algorithms.
@@ -144,11 +153,7 @@ All critical actions (registration, login, post creation, updates, and deletions
 - **GET /api/accounts/setup_mfa:** Get MFA key and QR code for setup.
 - **POST /api/accounts/unlock:** Unlock a user account (admin-only).
 
-
-
 ### License
 
 This project is licensed under the MIT License.
-
----
 
