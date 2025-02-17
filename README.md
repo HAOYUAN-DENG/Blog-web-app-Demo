@@ -44,13 +44,26 @@ This project is a blog demo application built using Flask. It offers:
 ```
 ├── app.py               # Main application entry point
 ├── config.py            # Configuration and application setup (database, logging, security, etc.)
-├── Dockerfile           # Docker configuration for containerizing the application
-├── requirements.txt     # Python dependencies for the project
-├── templates/           # HTML templates for various pages
-├── accounts/            # API and view routes for user account management
-├── posts/               # Post views and forms
+├── templates/
+│   ├── base.html        # Base template with navigation and common layout
+│   ├── index.html       # Home page
+│   ├── account.html     # User account page
+│   ├── login.html       # Login page
+│   ├── registration.html# Registration page
+│   ├── setup_mfa.html   # MFA setup page
+│   ├── posts/           # Post related templates:
+│   │   ├── create.html  # Create post page
+│   │   ├── update.html  # Update post page
+│   │   └── posts.html   # List posts page
+│   └── security.html    # Security monitoring page
+├── accounts/            # Contains API and view routes for user account management
+│   ├── api.py           # RESTful API endpoints for account operations
+│   └── views.py         # Account-related view routes (login, registration, account, MFA)
+├── posts/               # Contains post views and forms
+│   └── views.py         # Post creation, update, deletion, and display logic
 ├── forms.py             # WTForms definitions for registration, login, and posts
 └── logs.log             # Log file storing user activity logs
+|__ Dockerfile           # Docker setup
 ```
 
 ### Installation
