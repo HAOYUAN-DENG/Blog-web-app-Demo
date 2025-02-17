@@ -111,7 +111,7 @@ This project is a blog demo application built using Flask. It offers:
    ```bash
    flask run
    ```
-(or simply click Pycharm run UI)
+   (or simply click Pycharm run UI)
 
 2. **Access the Application:**
 
