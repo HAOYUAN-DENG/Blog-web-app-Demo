@@ -63,7 +63,7 @@ This project is a blog demo application built using Flask. It offers:
 │   └── views.py         # Post creation, update, deletion, and display logic
 ├── forms.py             # WTForms definitions for registration, login, and posts
 └── logs.log             # Log file storing user activity logs
-|__ Dockerfile           # Docker setup
+└── Dockerfile           # Docker setup
 ```
 
 ### Installation
