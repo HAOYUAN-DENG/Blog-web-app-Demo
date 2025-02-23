@@ -1,5 +1,5 @@
 # Blog Demo Application 
-# Abondoned, please see Blog-web-app-Demo-update repository 1
+# Abandoned, please see Blog-web-app-Demo-update repository 1
 A Flask-based blog demo project with user registration, multi-factor authentication, encrypted post creation, and role-based access control. The application demonstrates a complete web application stack with RESTful API endpoints, form validation, secure logging, and various user interfaces for registration, login, posting, and security monitoring.
 
 ---
